@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>XM｜全球領先的線上交易平台 — 外匯、黃金、指數、股票</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{
+brand:{50:'#FFF1F1',100:'#FFDFDF',400:'#F5565B',500:'#F03A3F',600:'#E01F26',700:'#B3131A'},
+ink:{700:'#232A34',800:'#171C24',900:'#101419',950:'#0A0C0F'},
+lm:{50:'#F7F8FA',100:'#EFF1F4',200:'#E4E7EC',500:'#6B7280'}},
+fontFamily:{sans:['Inter','Noto Sans TC','system-ui','sans-serif']}}}}
+</script>
+<style>
+:root{
+  --brand-600:#E01F26;--brand-500:#F03A3F;--brand-700:#B3131A;--brand-50:#FFF1F1;
+  --ink-950:#0A0C0F;--ink-900:#101419;--ink-800:#171C24;
+  --borders-300-alpha:rgba(255,255,255,.12);
+  --shadow-xs:0 1px 2px rgba(16,20,25,.06);
+  --ring-brand-shadow-xs:0 0 0 3px rgba(224,31,38,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,"Noto Sans TC",system-ui,sans-serif;background:#fff;color:#101419;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* ---------- risk bar ---------- */
+.riskbar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:#0A0C0F;color:#B9C0CB;border-top:1px solid rgba(255,255,255,.08);
+  font-size:11.5px;line-height:1.5;padding:9px 16px;display:flex;gap:14px;align-items:center;justify-content:center;text-align:center}
+.riskbar strong{color:#fff;font-weight:600}
+.riskbar a{color:#fff;text-decoration:underline;white-space:nowrap}
+@media(max-width:720px){.riskbar{font-size:10.5px;padding:7px 10px}.riskbar .rb-hide{display:none}}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:60;background:rgba(10,12,15,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.07)}
+.hdr{display:flex;align-items:center;gap:30px;height:72px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:21px;letter-spacing:-.02em;color:#fff}
+.logo .mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(140deg,#F5565B,#B3131A);display:grid;place-items:center;font-size:14px;color:#fff}
+nav.main{display:flex;gap:26px;margin-left:8px}
+nav.main a{color:#C6CDD8;font-size:14.5px;font-weight:500;padding:6px 0;position:relative;transition:.2s}
+nav.main a:hover{color:#fff}
+nav.main a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--brand-600);transform:scaleX(0);transition:.25s;transform-origin:left}
+nav.main a:hover::after{transform:scaleX(1)}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:8px;font-weight:600;transition:.2s;cursor:pointer;border:0;font-size:14.5px}
+.btn-ghost{color:#fff;padding:9px 14px;background:transparent}
+.btn-ghost:hover{background:rgba(255,255,255,.08)}
+.btn-primary{background:var(--brand-600);color:#fff;padding:11px 22px;box-shadow:var(--shadow-xs)}
+.btn-primary:hover{background:var(--brand-700);transform:translateY(-1px);box-shadow:var(--ring-brand-shadow-xs)}
+.btn-outline{border:1px solid rgba(255,255,255,.28);color:#fff;padding:11px 22px}
+.btn-outline:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.5)}
+.burger{display:none;background:none;border:0;color:#fff;font-size:22px;padding:6px}
+@media(max-width:960px){nav.main{display:none}nav.main.open{display:flex;position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;background:#0A0C0F;border-bottom:1px solid rgba(255,255,255,.08);padding:8px 24px}
+nav.main.open a{padding:13px 0;border-bottom:1px solid rgba(255,255,255,.06)}.burger{display:block}.btn-ghost.hide-sm{display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;background:radial-gradient(120% 90% at 78% 8%,#1B1013 0%,#0A0C0F 55%,#08090B 100%);color:#fff;padding:78px 0 0;overflow:hidden}
+.hero .glow{position:absolute;width:620px;height:620px;right:-140px;top:-180px;background:radial-gradient(circle,rgba(224,31,38,.34),transparent 66%);filter:blur(20px);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#FFB4B6;
+  border:1px solid rgba(245,86,91,.35);background:rgba(224,31,38,.1);padding:7px 13px;border-radius:999px;margin-bottom:22px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:#F5565B;box-shadow:0 0 0 4px rgba(245,86,91,.22)}
+h1{font-size:clamp(34px,4.6vw,58px);line-height:1.08;letter-spacing:-.025em;margin:0 0 20px;font-weight:800}
+h1 .grad{background:linear-gradient(100deg,#FFFFFF 8%,#FF9A78 52%,#E01F26 96%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{color:#A9B2BF;font-size:16.5px;line-height:1.72;max-width:520px;margin:0 0 30px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:34px}
+.trust{display:flex;gap:26px;flex-wrap:wrap;padding-top:26px;border-top:1px solid rgba(255,255,255,.09)}
+.trust div{font-size:12.5px;color:#8C96A3}
+.trust b{display:block;color:#fff;font-size:19px;font-weight:700;margin-bottom:3px;letter-spacing:-.01em}
+
+/* chart card */
+.chartcard{position:relative;border-radius:16px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,#12161C,#0C0F14);
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.8);overflow:hidden}
+.chartcard .bar{display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.07);font-size:12.5px;color:#98A2AF}
+.chartcard .bar i{width:8px;height:8px;border-radius:50%;background:#2B323C}
+.chartcard .bar i:first-child{background:#F5565B}
+.chartcard .bar b{color:#fff;font-weight:700;font-size:13px}
+.chartcard .bar span.pill{margin-left:auto;background:rgba(34,197,94,.14);color:#4ADE80;font-weight:700;padding:3px 8px;border-radius:6px;font-size:11.5px}
+.chartcard svg{display:block;width:100%;height:auto}
+.chartcard .foot{display:flex;justify-content:space-between;padding:12px 16px;border-top:1px solid rgba(255,255,255,.07);font-size:11.5px;color:#7B8593}
+
+/* ---------- ticker ---------- */
+.ticker{background:#0A0C0F;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);overflow:hidden;padding:16px 0}
+.tk-track{display:flex;gap:14px;width:max-content;animation:slide 46s linear infinite}
+.ticker:hover .tk-track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.tk{display:flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:10px 16px;background:#11151B;min-width:186px}
+.tk .sym{font-weight:700;color:#fff;font-size:13.5px;letter-spacing:.01em}
+.tk .px{color:#C6CDD8;font-size:13px;font-variant-numeric:tabular-nums;margin-left:auto}
+.tk .ch{font-size:12px;font-weight:700;padding:2px 7px;border-radius:5px}
+.up{color:#4ADE80;background:rgba(34,197,94,.13)}
+.dn{color:#F87171;background:rgba(248,113,113,.13)}
+
+/* ---------- sections ---------- */
+section{padding:84px 0}
+.s-head{max-width:660px;margin:0 auto 46px;text-align:center}
+.s-tag{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-600);margin-bottom:12px}
+h2{font-size:clamp(26px,3.2vw,40px);line-height:1.16;letter-spacing:-.02em;margin:0 0 14px;font-weight:800}
+.s-head p{color:#5B6572;font-size:15.5px;line-height:1.7;margin:0}
+
+/* awards marquee */
+.awards{background:var(--lm-50);border-bottom:1px solid var(--lm-200);padding:34px 0;overflow:hidden}
+.aw-track{display:flex;gap:44px;width:max-content;animation:slide 40s linear infinite;align-items:center}
+.aw{display:flex;align-items:center;gap:11px;color:#3A4250;font-size:13.5px;font-weight:600;white-space:nowrap;opacity:.82}
+.aw svg{flex:0 0 auto;color:var(--brand-600)}
+
+/* trader cards */
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tcard{border:1px solid var(--lm-200);border-radius:14px;padding:28px;background:#fff;transition:.25s;position:relative}
+.tcard:hover{transform:translateY(-4px);box-shadow:0 18px 40px -18px rgba(16,20,25,.25);border-color:#D3D8E0}
+.tcard.feat{border-color:var(--brand-600);box-shadow:var(--ring-brand-shadow-xs)}
+.tcard .tagtop{position:absolute;top:-11px;left:26px;background:var(--brand-600);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:5px;letter-spacing:.03em}
+.tcard h3{font-size:19px;margin:0 0 6px;font-weight:700}
+.tcard .desc{color:#6B7280;font-size:13.5px;line-height:1.6;margin:0 0 20px;min-height:42px}
+.tcard ul{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:11px}
+.tcard li{font-size:13.5px;color:#3A4250;display:flex;gap:9px;align-items:flex-start}
+.tcard li svg{flex:0 0 auto;margin-top:3px;color:#16A34A}
+.tcard .btn{width:100%;padding:12px}
+.tcard .btn.alt{background:var(--lm-100);color:#101419}
+.tcard .btn.alt:hover{background:var(--lm-200)}
+
+/* stats */
+.stats{background:var(--ink-950);color:#fff;padding:70px 0}
+.stats .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.stats .n{font-size:clamp(30px,3.6vw,46px);font-weight:800;letter-spacing:-.03em;
+  background:linear-gradient(180deg,#fff,#FF9A78);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stats .l{font-size:13px;color:#8C96A3;margin-top:8px}
+
+/* feature grid */
+.cards4{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.fcard{border:1px solid var(--lm-200);border-radius:14px;padding:26px;background:#fff;transition:.22s}
+.fcard:hover{border-color:#CFD5DE;box-shadow:0 14px 34px -18px rgba(16,20,25,.22)}
+.fcard .ic{width:44px;height:44px;border-radius:11px;background:var(--brand-50);color:var(--brand-600);display:grid;place-items:center;margin-bottom:18px}
+.fcard h3{font-size:16.5px;margin:0 0 8px;font-weight:700}
+.fcard p{margin:0;color:#6B7280;font-size:13.5px;line-height:1.65}
+
+/* split sections */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.split .art{border-radius:16px;overflow:hidden;border:1px solid var(--lm-200);background:var(--lm-50);aspect-ratio:4/3;position:relative}
+.split .art img{width:100%;height:100%;object-fit:cover;display:block}
+.split ul.checks{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:14px}
+.split ul.checks li{display:flex;gap:11px;font-size:14.5px;color:#3A4250;line-height:1.55}
+.split ul.checks svg{flex:0 0 auto;margin-top:2px;color:var(--brand-600)}
+
+/* cta band */
+.ctaband{background:linear-gradient(120deg,#0A0C0F,#22100F 55%,#3A0F12);color:#fff;border-radius:18px;padding:52px 46px;
+  display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.ctaband h2{margin:0 0 8px}
+.ctaband p{margin:0;color:#A9B2BF;font-size:14.5px}
+
+/* footer */
+footer{background:var(--ink-950);color:#8C96A3;padding:64px 0 120px;font-size:13px;line-height:1.7}
+.fgrid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:34px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.08)}
+footer h4{color:#fff;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 16px;font-weight:700}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+footer a:hover{color:#fff}
+.risk{margin-top:26px;font-size:11.5px;line-height:1.75;color:#767F8C}
+.risk strong{color:#B9C0CB}
+.fbot{margin-top:26px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center;font-size:11.5px;color:#666F7B}
+.socials{display:flex;gap:10px}
+.socials a{width:34px;height:34px;border-radius:8px;border:1px solid rgba(255,255,255,.14);display:grid;place-items:center;color:#C6CDD8;transition:.2s}
+.socials a:hover{background:rgba(255,255,255,.1);color:#fff}
+
+/* cookie + chat + totop */
+.cookie{position:fixed;left:20px;bottom:64px;z-index:80;width:min(360px,calc(100vw - 40px));background:#fff;border:1px solid var(--lm-200);
+  border-radius:12px;padding:18px;box-shadow:0 20px 50px -18px rgba(0,0,0,.35);font-size:12.5px;line-height:1.6;color:#3A4250}
+.cookie p{margin:0 0 14px}
+.cookie .row{display:flex;gap:9px}
+.cookie .btn{font-size:12.5px;padding:9px 14px}
+.cookie .btn-primary{flex:1}
+.cookie .btn.alt{background:var(--lm-100);color:#101419}
+.cookie.hide{display:none}
+.livechat{position:fixed;right:20px;bottom:64px;z-index:75;display:flex;align-items:center;gap:9px;background:var(--brand-600);color:#fff;
+  border-radius:999px;padding:12px 19px;font-size:13.5px;font-weight:600;box-shadow:0 14px 30px -10px rgba(224,31,38,.6);transition:.2s}
+.livechat:hover{transform:translateY(-2px)}
+.totop{position:fixed;right:20px;bottom:122px;z-index:74;width:42px;height:42px;border-radius:10px;background:#fff;border:1px solid var(--lm-200);
+  display:grid;place-items:center;color:#101419;opacity:0;pointer-events:none;transition:.25s;box-shadow:var(--shadow-xs)}
+.totop.on{opacity:1;pointer-events:auto}
+.totop:hover{background:var(--lm-50)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
+.reveal.in{opacity:1;transform:none}
+@keyframes slideInBottom{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+.md-animate-reveal{animation:slideInBottom .9s cubic-bezier(.22,.61,.36,1) both}
+
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .cards3,.cards4{grid-template-columns:1fr}
+  .stats .g4{grid-template-columns:1fr 1fr;gap:34px}
+  .split{grid-template-columns:1fr;gap:32px}
+  .fgrid{grid-template-columns:1fr 1fr}
+  section{padding:60px 0}
+  .ctaband{padding:36px 26px}
+  .livechat{padding:11px 15px;font-size:12.5px}
+}
+</style>
+</head>
+<body>
+
+<!-- RISK BAR -->
+<div class="riskbar">
+  <span><strong>風險警告：</strong>差價合約（CFD）屬槓桿產品，可能導致您損失全部資金。<span class="rb-hide">請確保了解相關風險。</span></span>
+  <a href="register.html">立即開戶</a>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="wrap hdr">
+    <a href="index.html" class="logo"><span class="mark">X</span>XM</a>
+    <nav class="main" id="nav">
+      <a href="#markets">交易產品</a>
+      <a href="#accounts">帳戶類型</a>
+      <a href="#platforms">交易平台</a>
+      <a href="#learn">學習中心</a>
+      <a href="#about">關於我們</a>
+    </nav>
+    <div class="hdr-right">
+      <a href="register.html" class="btn btn-ghost hide-sm">登入</a>
+      <a href="register.html" class="btn btn-primary">立即開始</a>
+      <button class="burger" id="burger" aria-label="選單">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" style="padding-bottom:64px">
+  <div class="glow"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow md-animate-reveal"><span class="dot"></span>全球超過 5,000,000 名客戶</span>
+      <h1 class="md-animate-reveal" style="animation-delay:.08s">與世界級交易商<br><span class="grad">開啟你的交易旅程</span></h1>
+      <p class="lead md-animate-reveal" style="animation-delay:.16s">超過 1,400 種交易產品，涵蓋外匯、黃金、指數、股票與加密貨幣。低點差、快速執行、24/7 多語支援，一切從這裡開始。</p>
+      <div class="hero-cta md-animate-reveal" style="animation-delay:.24s">
+        <a href="register.html" class="btn btn-primary" style="padding:14px 30px;font-size:15.5px">開始交易</a>
+        <a href="#accounts" class="btn btn-outline" style="padding:14px 30px;font-size:15.5px">查看帳戶類型</a>
+      </div>
+      <div class="trust md-animate-reveal" style="animation-delay:.32s">
+        <div><b>1,400+</b>交易產品</div>
+        <div><b>0.0 點</b>最低點差</div>
+        <div><b>24/7</b>客戶支援</div>
+        <div><b>190+</b>服務國家</div>
+      </div>
+    </div>
+    <div class="chartcard md-animate-reveal" style="animation-delay:.2s">
+      <div class="bar"><i></i><i></i><i></i><b>XAUUSD</b><span class="pill">+1.84%</span></div>
+      <svg viewBox="0 0 520 300" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F5565B" stop-opacity=".28"/>
+            <stop offset="1" stop-color="#F5565B" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g stroke="rgba(255,255,255,.06)">
+          <line x1="0" y1="60" x2="520" y2="60"/><line x1="0" y1="120" x2="520" y2="120"/>
+          <line x1="0" y1="180" x2="520" y2="180"/><line x1="0" y1="240" x2="520" y2="240"/>
+        </g>
+        <path d="M0,238 L40,226 L80,232 L120,204 L160,214 L200,182 L240,190 L280,152 L320,166 L360,124 L400,136 L440,96 L480,110 L520,72 L520,300 L0,300 Z" fill="url(#ag)"/>
+        <path d="M0,238 L40,226 L80,232 L120,204 L160,214 L200,182 L240,190 L280,152 L320,166 L360,124 L400,136 L440,96 L480,110 L520,72"
+              fill="none" stroke="#F5565B" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <g fill="#F5565B">
+          <rect x="114" y="196" width="6" height="26" rx="1.5"/><rect x="274" y="144" width="6" height="28" rx="1.5"/>
+          <rect x="434" y="88" width="6" height="30" rx="1.5"/>
+        </g>
+        <g fill="#22C55E">
+          <rect x="76" y="222" width="6" height="22" rx="1.5"/><rect x="356" y="120" width="6" height="24" rx="1.5"/>
+        </g>
+      </svg>
+      <div class="foot"><span>買入 2,398.44</span><span>賣出 2,398.92</span><span>點差 0.48</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="tk-track" id="tkTrack">
+    <div class="tk"><span class="sym">EURUSD</span><span class="px">1.0842</span><span class="ch up">+0.12%</span></div>
+    <div class="tk"><span class="sym">XAUUSD</span><span class="px">2,398.44</span><span class="ch up">+1.84%</span></div>
+    <div class="tk"><span class="sym">US30</span><span class="px">39,128.6</span><span class="ch dn">-0.31%</span></div>
+    <div class="tk"><span class="sym">BTCUSD</span><span class="px">67,412.0</span><span class="ch up">+2.26%</span></div>
+    <div class="tk"><span class="sym">GBPUSD</span><span class="px">1.2718</span><span class="ch dn">-0.08%</span></div>
+    <div class="tk"><span class="sym">USDJPY</span><span class="px">157.22</span><span class="ch up">+0.44%</span></div>
+    <div class="tk"><span class="sym">GER40</span><span class="px">18,204.3</span><span class="ch up">+0.19%</span></div>
+    <div class="tk"><span class="sym">WTI</span><span class="px">78.62</span><span class="ch dn">-0.72%</span></div>
+    <div class="tk"><span class="sym">AUDUSD</span><span class="px">0.6641</span><span class="ch up">+0.05%</span></div>
+    <div class="tk"><span class="sym">NAS100</span><span class="px">17,884.1</span><span class="ch dn">-0.44%</span></div>
+  </div>
+</div>
+
+<!-- AWARDS -->
+<div class="awards">
+  <div class="aw-track">
+    <span class="aw"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.4 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>最佳外匯經紀商 2024</span>
+    <span class="aw"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="9" r="6"/><path d="M8 14l-1 8 5-3 5 3-1-8"/></svg>最受歡迎交易平台</span>
+    <span class="aw"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.4 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>最佳客戶服務</span>
+    <span class="aw"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 5h16v11H8l-4 4z"/></svg>卓越教育資源</span>
+    <span class="aw"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6z"/></svg>資金安全保障</span>
+    <span class="aw"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 11-13h-7z"/></svg>最佳執行速度</span>
+    <span class="aw"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.4 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>最佳交易環境</span>
+    <span class="aw"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6z"/></svg>值得信賴品牌</span>
+  </div>
+</div>
+
+<!-- ACCOUNTS -->
+<section id="accounts">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <div class="s-tag">帳戶類型</div>
+      <h2>為每位交易者打造的帳戶</h2>
+      <p>無論你是剛起步或已有經驗，都能找到符合節奏的帳戶條件。所有帳戶皆可交易相同產品。</p>
+    </div>
+    <div class="cards3">
+      <div class="tcard reveal">
+        <h3>微型帳戶</h3>
+        <p class="desc">低門檻入門，最小 0.01 手，適合小額練習與測試策略。</p>
+        <ul>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>最低入金 $5</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>點差自 1.0 點起</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>槓桿最高 1:888</li>
+        </ul>
+        <a href="register.html" class="btn alt">開設帳戶</a>
+      </div>
+      <div class="tcard feat reveal">
+        <span class="tagtop">最受歡迎</span>
+        <h3>標準帳戶</h3>
+        <p class="desc">零佣金、全產品可交易，適合日常交易的主流選擇。</p>
+        <ul>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>0 佣金</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>1,400+ 交易產品</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>全部平台支援</li>
+        </ul>
+        <a href="register.html" class="btn btn-primary">立即開始</a>
+      </div>
+      <div class="tcard reveal">
+        <h3>超低點差帳戶</h3>
+        <p class="desc">以固定佣金換取接近 0 的點差，適合高頻與大額交易。</p>
+        <ul>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>點差自 0.0 點</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>佣金 $3.5/手</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>優先執行</li>
+        </ul>
+        <a href="register.html" class="btn alt">開設帳戶</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="wrap g4">
+    <div class="reveal"><div class="n" data-count="5000000" data-suffix="+">0</div><div class="l">全球客戶</div></div>
+    <div class="reveal"><div class="n" data-count="1400" data-suffix="+">0</div><div class="l">交易產品</div></div>
+    <div class="reveal"><div class="n" data-count="190" data-suffix="+">0</div><div class="l">服務國家</div></div>
+    <div class="reveal"><div class="n" data-count="60" data-suffix="+">0</div><div class="l">業界獎項</div></div>
+  </div>
+</div>
+
+<!-- MARKETS / FEATURES -->
+<section id="markets">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <div class="s-tag">交易產品</div>
+      <h2>一個帳戶，進入全球市場</h2>
+      <p>外匯、貴金屬、能源、指數、股票與加密貨幣，全部以差價合約形式交易。</p>
+    </div>
+    <div class="cards4">
+      <div class="fcard reveal">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v2H3zm2 5h3v9H5zm5 3h3v6h-3zm5-6h3v12h-3z"/></svg></div>
+        <h3>外匯</h3><p>60+ 貨幣對，主要、次要與稀有貨幣對，點差自 0.0 點。</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l4 6h-3v6h-2V9H8z"/><rect x="4" y="17" width="16" height="3" rx="1"/></svg></div>
+        <h3>黃金與白銀</h3><p>貴金屬行情波動大，是避險與投機的熱門品種。</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4 20h16v-2H4zM6 16h3V8H6zm5 0h3V4h-3zm5 0h3v-6h-3z"/></svg></div>
+        <h3>指數</h3><p>US30、NAS100、GER40 等主要指數，掌握大盤脈動。</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l9 5v10l-9 5-9-5V7z"/></svg></div>
+        <h3>股票</h3><p>全球知名企業股票 CFD，含股息調整機制。</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 11-13h-7z"/></svg></div>
+        <h3>能源</h3><p>原油與天然氣，緊貼供需與地緣事件。</p>
+      </div>
+      <div class="fcard reveal">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h5M9.5 14.5h5" stroke="#fff" stroke-width="1.6" fill="none"/></svg></div>
+        <h3>加密貨幣</h3><p>BTC、ETH 等主流幣種，24 小時不間斷交易。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<section id="platforms" style="background:var(--lm-50);border-top:1px solid var(--lm-200);border-bottom:1px solid var(--lm-200)">
+  <div class="wrap split">
+    <div class="reveal">
+      <div class="s-tag">交易平台</div>
+      <h2>專業平台，隨時隨地</h2>
+      <p style="color:#5B6572;font-size:15.5px;line-height:1.72;margin:0">MT4、MT5 與 XM App 全面支援，桌面、網頁與手機無縫切換。完整技術指標、EA 自動交易與一鍵下單。</p>
+      <ul class="checks">
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>MT4 / MT5 完整功能，支援智慧交易系統</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>行動 App 即時盯盤與下單</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>VPS 主機代管，低延遲執行</li>
+      </ul>
+      <a href="register.html" class="btn btn-primary" style="margin-top:26px;padding:13px 26px">下載並開始</a>
+    </div>
+    <div class="art reveal"><img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1000&q=70" alt="交易平台"></div>
+  </div>
+</section>
+
+<!-- SAFETY -->
+<section id="about">
+  <div class="wrap split">
+    <div class="art reveal"><img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1000&q=70" alt="資金安全"></div>
+    <div class="reveal">
+      <div class="s-tag">資金安全</div>
+      <h2>你的資金，受到層層保護</h2>
+      <p style="color:#5B6572;font-size:15.5px;line-height:1.72;margin:0">客戶資金與公司營運資金完全隔離，存放於頂級銀行帳戶。負餘額保護確保損失不超過入金。</p>
+      <ul class="checks">
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>客戶資金隔離存放</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>負餘額保護機制</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>貝里斯 FSC 授權監管（牌照 8557558）</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>SSL 加密與雙重驗證</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- LEARN / SUPPORT -->
+<section id="learn" style="background:var(--lm-50);border-top:1px solid var(--lm-200)">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <div class="s-tag">學習與支援</div>
+      <h2>有人陪你一起成長</h2>
+      <p>從入門教學到進階策略，加上 24/7 真人客服，你不會孤軍奮戰。</p>
+    </div>
+    <div class="cards3">
+      <div class="fcard reveal"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v12H8l-4 4z"/></svg></div><h3>免費線上課程</h3><p>影音教學、電子書與每日市場分析，按自己的步調學習。</p></div>
+      <div class="fcard reveal"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2zm0-4h-2V7h2z"/></svg></div><h3>24/7 多語客服</h3><p>線上聊天、電話與 Email，全天候以你的語言協助。</p></div>
+      <div class="fcard reveal"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6z"/></svg></div><h3>專屬客戶經理</h3><p>高階帳戶享有一對一支援與市場洞察。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding-top:0;background:var(--lm-50)">
+  <div class="wrap">
+    <div class="ctaband reveal">
+      <div>
+        <h2>準備好開始了嗎？</h2>
+        <p>開戶只需幾分鐘，立即進入全球市場。</p>
+      </div>
+      <a href="register.html" class="btn btn-primary" style="padding:15px 34px;font-size:15.5px">立即開始</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a href="index.html" class="logo" style="margin-bottom:16px"><span class="mark">X</span>XM</a>
+        <p style="margin:0 0 18px">全球領先的線上交易商，服務超過 190 個國家。</p>
+        <div class="socials">
+          <a href="https://x.com/askvenice" aria-label="X"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h3l-7 8 8 12h-6l-5-7-6 7H2l8-9L2 2h6l4 6z"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V8c0-1.2.4-2 2-2h2V2h-3c-3 0-4 2-4 4v4H7v4h3v8z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 7a5 5 0 100 10 5 5 0 000-10zm0 8a3 3 0 110-6 3 3 0 010 6zm6.5-9.5a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0zM12 2h.9c2.5 0 2.8 0 3.8.1 1 .1 1.7.3 2.3.6.6.3 1.1.7 1.6 1.2.5.5.9 1 1.2 1.6.3.6.5 1.3.6 2.3.1 1 .1 1.3.1 3.8v.8c0 2.5 0 2.8-.1 3.8-.1 1-.3 1.7-.6 2.3-.3.6-.7 1.1-1.2 1.6-.5.5-1 .9-1.6 1.2-.6.3-1.3.5-2.3.6-1 .1-1.3.1-3.8.1h-.8c-2.5 0-2.8 0-3.8-.1-1-.1-1.7-.3-2.3-.6-.6-.3-1.1-.7-1.6-1.2-.5-.5-.9-1-1.2-1.6-.3-.6-.5-1.3-.6-2.3C2 15.7 2 15.4 2 12.9V12c0-2.5 0-2.8.1-3.8.1-1 .3-1.7.6-2.3.3-.6.7-1.1 1.2-1.6.5-.5 1-.9 1.6-1.2.6-.3 1.3-.5 2.3-.6C8.8 2 9.1 2 11.6 2z"/></svg></a>
+        </div>
+      </div>
+      <div><h4>交易</h4><ul><li><a href="#markets">外匯</a></li><li><a href="#markets">貴金屬</a></li><li><a href="#markets">指數</a></li><li><a href="#markets">股票</a></li><li><a href="#markets">加密貨幣</a></li></ul></div>
+      <div><h4>平台</h4><ul><li><a href="#platforms">MT4</a></li><li><a href="#platforms">MT5</a></li><li><a href="#platforms">行動 App</a></li><li><a href="#platforms">VPS</a></li></ul></div>
+      <div><h4>學習</h4><ul><li><a href="#learn">線上課程</a></li><li><a href="#learn">市場分析</a></li><li><a href="#learn">術語辭典</a></li><li><a href="#learn">經濟日曆</a></li></ul></div>
+      <div><h4>公司</h4><ul><li><a href="#about">關於我們</a></li><li><a href="#about">監管資訊</a></li><li><a href="register.html">開設帳戶</a></li><li><a href="#learn">聯絡我們</a></li></ul></div>
+    </div>
+
+    <p class="risk"><strong>風險警告：</strong>差價合約（CFD）為槓桿產品，交易涉及高度風險，可能導致您損失全部投入資金，未必適合所有投資者。請在交易前審慎評估自身財務狀況、投資經驗與風險承受度，必要時尋求獨立專業意見。過往績效不代表未來表現。</p>
+    <p class="risk" style="margin-top:14px">XM Global Limited 由貝里斯金融服務委員會（Belize FSC）授權與監管，牌照號碼 8557558，註冊地址：No. 5 Cork Street, Belize City, Belize。本網站不適用於美國、加拿大、以色列與伊朗居民。</p>
+
+    <div class="fbot">
+      <span>© 2026 XM Global Limited. 版權所有。</span>
+      <span>條款與條件 · 隱私政策 · Cookie 政策</span>
+    </div>
+  </div>
+</footer>
+
+<!-- COOKIE -->
+<div class="cookie hide" id="cookie">
+  <p>我們使用 Cookie 以提升體驗、分析流量並提供個人化內容。繼續瀏覽即表示您同意我們的 Cookie 政策。</p>
+  <div class="row">
+    <button class="btn btn-primary" id="ckOk">全部接受</button>
+    <button class="btn alt" id="ckNo">僅必要</button>
+  </div>
+</div>
+
+<a href="#" class="livechat" id="chat">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v12H8l-4 4z"/></svg>線上客服
+</a>
+<button class="totop" id="totop" aria-label="回到頂端">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5l7 7-1.4 1.4L13 8.8V19h-2V8.8l-4.6 4.6L5 12z"/></svg>
+</button>
+
+<script>
+// mobile nav
+document.getElementById('burger').addEventListener('click',()=>document.getElementById('nav').classList.toggle('open'));
+document.querySelectorAll('#nav a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')));
+
+// duplicate ticker + awards for seamless loop
+['tkTrack'].forEach(id=>{const t=document.getElementById(id);t.innerHTML+=t.innerHTML;});
+const aw=document.querySelector('.aw-track'); aw.innerHTML+=aw.innerHTML;
+
+// live price jitter
+setInterval(()=>{
+  document.querySelectorAll('.tk').forEach(tk=>{
+    const px=tk.querySelector('.px'); const n=parseFloat(px.textContent.replace(/,/g,''));
+    if(isNaN(n))return;
+    const d=(Math.random()-.5)*n*0.0009;
+    px.textContent=(n+d).toLocaleString('en-US',{maximumFractionDigits:n>1000?2:4});
+  });
+},2200);
+
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.14});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// counters
+function countUp(el){
+  const target=+el.dataset.count, suf=el.dataset.suffix||'', dur=1600, t0=performance.now();
+  const step=t=>{
+    const p=Math.min((t-t0)/dur,1), e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(target*e).toLocaleString('en-US')+suf;
+    if(p<1)requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){countUp(e.target);io2.unobserve(e.target);}}),{threshold:.4});
+document.querySelectorAll('[data-count]').forEach(el=>io2.observe(el));
+
+// cookie
+const ck=document.getElementById('cookie');
+if(!localStorage.getItem('xm-cookie-consent'))setTimeout(()=>ck.classList.remove('hide'),1200);
+document.getElementById('ckOk').onclick=()=>{localStorage.setItem('xm-cookie-consent','all');ck.classList.add('hide')};
+document.getElementById('ckNo').onclick=()=>{localStorage.setItem('xm-cookie-consent','necessary');ck.classList.add('hide')};
+
+// back to top
+const tt=document.getElementById('totop');
+addEventListener('scroll',()=>tt.classList.toggle('on',scrollY>600));
+tt.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+document.getElementById('chat').onclick=e=>{e.preventDefault();alert('線上客服已連線（示範）');};
+</script>
+</body>
+</html>
